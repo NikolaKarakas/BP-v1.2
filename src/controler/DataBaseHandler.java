@@ -57,13 +57,13 @@ public class DataBaseHandler {
 		        if(rs.next()==false)
 		        {
 		        	//DOES NOT EXIST ADD NEW USER
-	        		System.out.println("USER DOES NOT EXIST");
+	        		//System.out.println("USER DOES NOT EXIST");
 	        		 write_new_user(user_name, git_id);
 		        }
 		        else
 		        	do { 
 		        		user_pkey = rs.getInt(1);
-		        		System.out.println("USER ID EXISTS WITH ID: " +  user_pkey);
+		        		//System.out.println("USER ID EXISTS WITH ID: " +  user_pkey);
 		          	 	}
 		        	while (rs.next());
 
@@ -80,7 +80,7 @@ public class DataBaseHandler {
 	public void write_new_user(String user_name, int git_id) {
 		
 		PreparedStatement pst;
-		System.out.println("...ADDING NEW USER...");
+		//System.out.println("...ADDING NEW USER...");
 
 	    try {
 			pst = connection.prepareStatement("INSERT INTO developers(user_name,git_id) VALUES (?,?)");
@@ -114,11 +114,11 @@ public class DataBaseHandler {
 			pst.setLong(2, user_pkey);
 			pst.setLong(3, user_pkey);
 			ResultSet keySet = pst.executeQuery();
-			System.out.println("ADDING NEW FILE: "+ file_name);
+			//System.out.println("ADDING NEW FILE: "+ file_name);
 			
 			if(keySet.next()) {
 				file_pkey = keySet.getInt(1);
-				System.out.println("ID NOVOG PR FAJLA : " + keySet.getInt(1));
+				//System.out.println("ID NOVOG PR FAJLA : " + keySet.getInt(1));
 			}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -132,7 +132,7 @@ public class DataBaseHandler {
 					        if(rs.next()==true)
 					        	do { 
 					        			file_pkey = rs.getInt(1);
-										System.out.println("FILE " + file_name + " " +  file_pkey+ " ALREADY EXISTS");
+										//System.out.println("FILE " + file_name + " " +  file_pkey+ " ALREADY EXISTS");
 
 					          	 	}
 					        	while (rs.next());
@@ -150,7 +150,7 @@ public class DataBaseHandler {
 	public  void write_new_pullrequest(int number) {
 		
 		PreparedStatement pst;
-		System.out.println("...ADDING NEW PULL REQUEST...");
+		//System.out.println("...ADDING NEW PULL REQUEST...");
 
 	    try {
 			pst = connection.prepareStatement("INSERT INTO pullrequests(number,developer,merged) VALUES (?,?,?) RETURNING ID");
@@ -162,7 +162,7 @@ public class DataBaseHandler {
 			
 			if(keySet.next()) {
 				pull_pkey = keySet.getInt(1);
-				System.out.println("ID NOVOG PR JE : " + keySet.getInt(1));
+				//System.out.println("ID NOVOG PR JE : " + keySet.getInt(1));
 			}
 		
 					
@@ -176,7 +176,7 @@ public class DataBaseHandler {
 public  void write_new_commit(String sha,String date_commited) {
 		
 		PreparedStatement pst;
-		System.out.println("...ADDING NEW COMMIT...");
+		//System.out.println("...ADDING NEW COMMIT...");
 
 	    try {
 			pst = connection.prepareStatement("INSERT INTO commits(sha,date_commited,developer) VALUES (?,?,?) RETURNING ID");
@@ -188,7 +188,7 @@ public  void write_new_commit(String sha,String date_commited) {
 			
 			if(keySet.next()) {
 				commit_pkey = keySet.getInt(1);
-				System.out.println("ID NOVOG COMMITA JE : " + keySet.getInt(1));
+				//System.out.println("ID NOVOG COMMITA JE : " + keySet.getInt(1));
 			}
 		
 					
@@ -224,6 +224,196 @@ public  void write_new_commit(String sha,String date_commited) {
 		}		
 	}
 	
+	public int number_of_contributors() {
+		PreparedStatement pst;
+		//System.out.println("...ADDING NEW COMMIT...");
+	    try {
+			pst = connection.prepareStatement("SELECT COUNT(*) FROM developers;");
+
+			ResultSet keySet = pst.executeQuery();
+			
+			if(keySet.next()) {
+				return keySet.getInt(1);
+				//System.out.println("ID NOVOG COMMITA JE : " + keySet.getInt(1));
+			}
+					
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public int number_of_files() {
+		PreparedStatement pst;
+		//System.out.println("...ADDING NEW COMMIT...");
+	    try {
+			pst = connection.prepareStatement("SELECT COUNT(*) FROM files;");
+
+			ResultSet keySet = pst.executeQuery();
+			
+			if(keySet.next()) {
+				return keySet.getInt(1);
+				//System.out.println("ID NOVOG COMMITA JE : " + keySet.getInt(1));
+			}
+					
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public int number_of_coded_files() {
+		PreparedStatement pst;
+		//System.out.println("...ADDING NEW COMMIT...");
+	    try {
+			pst = connection.prepareStatement("select  count (distinct (file) ) from changes ;");
+
+			ResultSet keySet = pst.executeQuery();
+			
+			if(keySet.next()) {
+				return keySet.getInt(1);
+				//System.out.println("ID NOVOG COMMITA JE : " + keySet.getInt(1));
+			}
+					
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public int number_of_commits() {
+		PreparedStatement pst;
+		//System.out.println("...ADDING NEW COMMIT...");
+	    try {
+			pst = connection.prepareStatement("select  count(*) from commits ;");
+
+			ResultSet keySet = pst.executeQuery();
+			
+			if(keySet.next()) {
+				return keySet.getInt(1);
+				//System.out.println("ID NOVOG COMMITA JE : " + keySet.getInt(1));
+			}
+					
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public int files_single_dev() {
+		PreparedStatement pst;
+		//System.out.println("...ADDING NEW COMMIT...");
+	    try {
+			pst = connection.prepareStatement("select count(*) from\r\n" + 
+					"(select  G.id,count(*) as count from (select   c.file as id  from changes c\r\n" + 
+					"left join commits k  on c.commit = k.id\r\n" + 
+					"group by k.developer,c.file\r\n" + 
+					"order by c.file asc) as G\r\n" + 
+					"group by G.id\r\n" + 
+					"having count(*) = 1) as F\r\n" + 
+					";\r\n" + 
+					"");
+
+			ResultSet keySet = pst.executeQuery();
+			
+			if(keySet.next()) {
+				return keySet.getInt(1);
+				//System.out.println("ID NOVOG COMMITA JE : " + keySet.getInt(1));
+			}
+					
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	
+	public int files_developed_inpair() {
+		PreparedStatement pst;
+		//System.out.println("...ADDING NEW COMMIT...");
+	    try {
+			pst = connection.prepareStatement("select count(*) from\r\n" + 
+					"(select  G.id,count(*) as count from (select   c.file as id  from changes c\r\n" + 
+					"left join commits k  on c.commit = k.id\r\n" + 
+					"group by k.developer,c.file\r\n" + 
+					"order by c.file asc) as G\r\n" + 
+					"group by G.id\r\n" + 
+					"having count(*) = 2) as F\r\n" + 
+					";\r\n" + 
+					"");
+
+			ResultSet keySet = pst.executeQuery();
+			
+			if(keySet.next()) {
+				return keySet.getInt(1);
+				//System.out.println("ID NOVOG COMMITA JE : " + keySet.getInt(1));
+			}
+					
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public int files_multiple_dev() {
+		PreparedStatement pst;
+		//System.out.println("...ADDING NEW COMMIT...");
+	    try {
+			pst = connection.prepareStatement("select count(*) from\r\n" + 
+					"(select  G.id,count(*) as count from (select   c.file as id  from changes c\r\n" + 
+					"left join commits k  on c.commit = k.id\r\n" + 
+					"group by k.developer,c.file\r\n" + 
+					"order by c.file asc) as G\r\n" + 
+					"group by G.id\r\n" + 
+					"having count(*) > 2) as F\r\n" + 
+					";\r\n" + 
+					"");
+
+			ResultSet keySet = pst.executeQuery();
+			
+			if(keySet.next()) {
+				return keySet.getInt(1);
+				//System.out.println("ID NOVOG COMMITA JE : " + keySet.getInt(1));
+			}
+					
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	
+	public int max_dev_onFile() {
+		PreparedStatement pst;
+		//System.out.println("...ADDING NEW COMMIT...");
+	    try {
+			pst = connection.prepareStatement("select max(F.count) from\r\n" + 
+					"(select  G.id,count(*) as count from (select   c.file as id  from changes c\r\n" + 
+					"left join commits k  on c.commit = k.id\r\n" + 
+					"group by k.developer,c.file\r\n" + 
+					"order by c.file asc) as G\r\n" + 
+					"group by G.id) as F;");
+
+			ResultSet keySet = pst.executeQuery();
+			
+			if(keySet.next()) {
+				return keySet.getInt(1);
+				//System.out.println("ID NOVOG COMMITA JE : " + keySet.getInt(1));
+			}
+					
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
 	
 
 

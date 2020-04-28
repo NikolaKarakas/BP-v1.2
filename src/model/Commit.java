@@ -37,8 +37,16 @@ public class Commit {
 		
 		setDate(iterator.optJSONObject("commit").optJSONObject("author").getString("date"));
 		format_date();
-		setAuthor(iterator.optJSONObject("author").getString("login"));
-		setGit_id(iterator.optJSONObject("author").getInt("id"));
+		
+		if(iterator.optJSONObject("author") == null){
+			//sSystem.out.println("NEMA AUTORA---" + iterator.optJSONObject("commit").optJSONObject("author").getString("name"));
+			this.author=iterator.optJSONObject("commit").optJSONObject("author").getString("name");
+			setGit_id(-1);
+		}
+		else {
+			this.author=iterator.optJSONObject("author").getString("login");
+			setGit_id(iterator.optJSONObject("author").getInt("id"));
+		}
 		this.response=response;
 		check_for_pull_request(iterator,url);
 		this.dataBaseHandler=dataBaseHandler;
@@ -84,12 +92,12 @@ public class Commit {
 		}
 		
 		
-		
-		setAuthor(pullRequest.getUser_name());
+		//System.out.println("AUTHOR IZ PULL REQUESTA");
+		this.author=pullRequest.getUser_name();
 		setGit_id(pullRequest.getGit_id());
 		}
 		else {
-			System.out.println("PR NE POSTOJI");
+			//System.out.println("PR NE POSTOJI");
 		}
 	}
 
@@ -111,9 +119,6 @@ public class Commit {
 	}
 
 
-	public void setAuthor(String user_name) {
-		this.author = user_name;
-	}
 
 
 	public PullRequest getPullRequest() {

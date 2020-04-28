@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="434.0" prefWidth="629.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainViewController">
+   <tabs>
+      <Tab text="Statistics">
+         <content>
+            <ScrollPane prefHeight="200.0" prefWidth="200.0">
+               <content>
+                  <VBox prefHeight="483.0" prefWidth="623.0">
+                     <children>
+                        <HBox prefHeight="461.0" prefWidth="623.0">
+                           <children>
+                              <VBox prefHeight="358.0" prefWidth="273.0">
+                                 <children>
+                                    <Label minHeight="27.0" prefHeight="27.0" prefWidth="171.0" text="Number of contributors:" />
+                                    <Label minHeight="27.0" prefHeight="27.0" prefWidth="171.0" text="Number of files:" />
+                                    <Label minHeight="27.0" prefHeight="27.0" prefWidth="171.0" text="Number of coded files:" />
+                                    <Label minHeight="27.0" prefHeight="27.0" prefWidth="171.0" text="Number of commits:" />
+                                    <Label minHeight="27.0" prefHeight="27.0" text="Number of Files Developed by Single Developer:" />
+                                    <Label minHeight="27.0" prefHeight="27.0" text="Files developed in Pair:" />
+                                    <Label minHeight="27.0" prefHeight="27.0" text="Number of Files Developed by Multiple Developers:" />
+                                    <Label minHeight="27.0" prefHeight="27.0" text="Max developers on a single file:" />
+                                    <Label minHeight="27.0" prefHeight="27.0" text="Developer with the most files writen:" />
+                                    <Label minHeight="27.0" prefHeight="27.0" text="Percentage:" />
+                                    <Label minHeight="27.0" prefHeight="27.0" text="Developer with the most lines writen:" />
+                                    <Label minHeight="27.0" prefHeight="27.0" text="Percentage:" />
+                                    <Separator prefHeight="63.0" prefWidth="273.0" />
+                                    <Label prefHeight="27.0" text="Patterns">
+                                       <VBox.margin>
+                                          <Insets left="100.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label prefHeight="27.0" text="CodeOwnership:" />
+                                    <Label prefHeight="27.0" text="Developing In Pairs:" />
+                                    <Label prefHeight="27.0" text="Architect Also Implements:" />
+                                    <Label prefHeight="27.0" text="Guru Does It All:" />
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="10.0" top="10.0" />
+                                 </HBox.margin>
+                              </VBox>
+                              <VBox prefHeight="358.0" prefWidth="273.0">
+                                 <children>
+                                    <Label fx:id="num_contLabel" minHeight="27.0" prefHeight="27.0" text="a" />
+                                    <Label fx:id="num_filesLabel" minHeight="27.0" prefHeight="27.0" text="b" />
+                                    <Label fx:id="num_codedfilesLabel" minHeight="27.0" prefHeight="27.0" text="c" />
+                                    <Label fx:id="num_commitsLabel" minHeight="27.0" prefHeight="27.0" text="d" />
+                                    <Label fx:id="num_fileSingleDevLabel" minHeight="27.0" prefHeight="27.0" text="e" />
+                                    <Label fx:id="num_filesDevPairLabel" prefHeight="27.0" text="p" />
+                                    <Label fx:id="num_file_multipleDev" minHeight="27.0" prefHeight="27.0" text="f" />
+                                    <Label fx:id="max_devSingleFileLabel" minHeight="27.0" prefHeight="27.0" text="g" />
+                                    <Label fx:id="dev_maxFilesWriteLabel" minHeight="27.0" prefHeight="27.0" text="h" />
+                                    <Label fx:id="dev_maxFilesWritePercLabel" prefHeight="27.0" text="q" />
+                                    <Label fx:id="dev_maxLinesWritePLabel" prefHeight="27.0" text="w" />
+                                    <Label fx:id="dev_maxFilesLinesPercLabel" prefHeight="27.0" text="r" />
+                                    <Separator opacity="0.0" prefHeight="63.0" prefWidth="273.0">
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </Separator>
+                                    <Label prefHeight="27.0" text="x" />
+                                    <Label prefHeight="27.0" text="x" />
+                                    <Label prefHeight="27.0" text="x" />
+                                    <Label prefHeight="27.0" text="x" />
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="30.0" top="10.0" />
+                                 </HBox.margin>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </content>
+      </Tab>
+      <Tab text="Architect Also Implements">
+         <content>
+            <ScrollPane prefHeight="200.0" prefWidth="200.0" vvalue="0.48">
+               <content>
+                  <VBox prefHeight="618.0" prefWidth="619.0">
+                     <children>
+                        <HBox prefHeight="33.0" prefWidth="616.0">
+                           <children>
+                              <Label text="Files Architect Contributed:" />
+                              <Label text="Label">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets left="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                        <Label text="Architect's activity over time:">
+                           <VBox.margin>
+                              <Insets left="10.0" top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <LineChart prefHeight="226.0" prefWidth="608.0">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                        </LineChart>
+                        <Label text="Architect Compared to Other Developers:">
+                           <VBox.margin>
+                              <Insets left="10.0" top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <LineChart prefHeight="285.0" prefWidth="616.0">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                        </LineChart>
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </content>
+      </Tab>
+      <Tab text="Developing In Pair">
+         <content>
+            <ScrollPane vvalue="0.05">
+               <content>
+                  <AnchorPane minHeight="-Infinity" minWidth="-Infinity">
+                     <children>
+                        <TableView layoutX="39.0" layoutY="24.0" prefHeight="147.0" prefWidth="406.0" style="-fx-border-width: 2;">
+                           <columns>
+                              <TableColumn prefWidth="235.0" text="User Name" />
+                              <TableColumn prefWidth="170.0" text="Number of Commits" />
+                           </columns>
+                        </TableView>
+                        <TableView layoutX="39.0" layoutY="223.0" prefHeight="189.0" prefWidth="527.0" style="-fx-border-width: 2;">
+                           <columns>
+                              <TableColumn prefWidth="235.0" text="Developer 1" />
+                              <TableColumn prefWidth="105.0" text="Number of Files" />
+                              <TableColumn prefWidth="185.0" text="Developer 2" />
+                           </columns>
+                        </TableView>
+                        <Label layoutX="39.0" layoutY="189.0" prefHeight="25.0" prefWidth="170.0" text="Developing In Pairs" />
+                        <ImageView fitHeight="199.0" fitWidth="533.0" layoutX="39.0" layoutY="470.0" pickOnBounds="true" preserveRatio="true" />
+                        <Text layoutX="39.0" layoutY="441.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </ScrollPane>
+         </content>
+      </Tab>
+      <Tab text="Code Ownership">
+         <content>
+            <ScrollPane prefHeight="200.0" prefWidth="200.0">
+               <content>
+                  <VBox prefHeight="191.0" prefWidth="579.0">
+                     <children>
+                        <Label text="Enter Index of File Change:">
+                           <VBox.margin>
+                              <Insets left="10.0" top="5.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextField maxWidth="60.0" promptText="\%">
+                           <VBox.margin>
+                              <Insets left="10.0" top="5.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TableView style="-fx-border-width: 2;">
+                           <columns>
+                              <TableColumn maxWidth="200.0" prefWidth="200.0" text="Number of Contributors" />
+                              <TableColumn maxWidth="200.0" prefWidth="200.0" text="Number of Files" />
+                           </columns>
+                           <VBox.margin>
+                              <Insets left="10.0" top="5.0" />
+                           </VBox.margin>
+                        </TableView>
+                        <Label text="Contributors Histogram">
+                           <VBox.margin>
+                              <Insets left="10.0" top="5.0" />
+                           </VBox.margin>
+                        </Label>
+                        <BarChart prefHeight="170.0" prefWidth="540.0">
+                           <xAxis>
+                              <CategoryAxis side="BOTTOM" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis side="LEFT" />
+                           </yAxis>
+                           <VBox.margin>
+                              <Insets left="10.0" top="5.0" />
+                           </VBox.margin>
+                        </BarChart>
+                        <Label alignment="TOP_CENTER" text="Pair Developing History">
+                           <VBox.margin>
+                              <Insets left="10.0" top="5.0" />
+                           </VBox.margin>
+                        </Label>
+                        <LineChart prefHeight="225.0" prefWidth="579.0">
+                           <xAxis>
+                              <CategoryAxis side="BOTTOM" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis side="LEFT" />
+                           </yAxis>
+                           <VBox.margin>
+                              <Insets left="10.0" top="5.0" />
+                           </VBox.margin>
+                        </LineChart>
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </content>
+      </Tab>
+   </tabs>
+</TabPane>

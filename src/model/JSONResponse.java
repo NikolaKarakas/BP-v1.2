@@ -15,6 +15,7 @@ public class JSONResponse {
 		jsonRespond = new JSONObject(response);
 		jsonArray= jsonRespond.getJSONArray("obj");
 		jsonArraySize= jsonArray.length();
+		
 
 	}
 

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainController">
+   <children>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bachelor Project" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nikola Karakas" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FIIT 2019/2020" />
+      <TextField fx:id="user_nameLabel" alignment="CENTER" maxWidth="300.0" promptText="Enter Your GIT HUB User Name" stylesheets="@bootstrap.css" />
+      <TextField fx:id="repo_nameLabel" alignment="CENTER" maxWidth="300.0" promptText="Enter Your GIT HUB Repo Name" />
+      <TextField fx:id="access_tokenLabel" alignment="CENTER" maxWidth="300.0" promptText="Enter Your GIT HUB Acess Token" />
+      <Button fx:id="cont" mnemonicParsing="false" onAction="#nesto" text="Continue" />
+   </children>
+</VBox>
