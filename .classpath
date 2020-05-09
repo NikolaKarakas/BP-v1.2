@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="sources"/>
 	<classpathentry kind="lib" path="lib/aopalliance-repackaged-2.3.0-b10.jar"/>
 	<classpathentry kind="lib" path="lib/asm-debug-all-5.0.2.jar"/>
 	<classpathentry kind="lib" path="lib/hk2-api-2.3.0-b10.jar"/>
@@ -29,5 +30,7 @@
 	<classpathentry kind="lib" path="lib/validation-api-1.1.0.Final.jar"/>
 	<classpathentry kind="lib" path="C:/Users/TOSHIBA/Downloads/json-20140107.jar"/>
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/TOSHIBA/Downloads/jython-installer-2.7.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/TOSHIBA/Downloads/jython-standalone-2.7.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

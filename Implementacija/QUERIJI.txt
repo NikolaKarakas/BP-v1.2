@@ -1,0 +1,51 @@
+SELECT ALL 
+
+select d.user_name, k.id, k.date_commited,f.id, c.line,c.operation from changes c left join files f on c.file = f.id 
+left join commits k on c.commit = k.id
+left join developers d on k.developer = d.id
+limit 100;
+
+NADJI FAJLOVE KOJE RADILI 
+
+UKUPAN BROJ PISANIH FAJLOVA
+select  count(distinct (c.file))  from changes c;
+
+
+UKUPAN BROJ FAJLOVA KOJE SU RADILI 2 ili vise 
+
+select  G.id,count(*) as count from (select   c.file as id  from changes c
+left join commits k  on c.commit = k.id
+group by k.developer,c.file
+order by c.file asc) as G
+group by G.id
+having count(*) > 0
+;
+
+
+
+Broj fajlova koje je developer pisao
+select G.dev,count(*) from (select k.developer as dev, c.file from changes c
+left join commits k on c.commit = k.id
+group by k.developer, c.file
+order by k.developer asc) as G
+group by G.dev
+order by count(*) desc;
+
+
+BROJ COMMITA PO DEVELOPERU 
+select d.user_name, count(*) from commits k
+join developers d on k.developer = d.id
+group by d.user_name
+order by count desc
+;
+
+|FILES| -> OWNER - FILES COUNT - ko je vlasnik koliko fajlova? 
+select owner,count(*) from files
+group by owner
+order by count(*) desc;
+
+
+
+
+
+

@@ -1,5 +1,8 @@
 package controler;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.PKCS12Attribute;
 import java.security.interfaces.RSAMultiPrimePrivateCrtKey;
 import java.sql.Connection;
@@ -9,8 +12,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.BreakIterator;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 import javax.validation.metadata.ReturnValueDescriptor;
@@ -413,6 +420,182 @@ public  void write_new_commit(String sha,String date_commited) {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+	
+	public int dev_withMax_files() {
+		PreparedStatement pst;
+		//System.out.println("...ADDING NEW COMMIT...");
+	    try {
+			pst = connection.prepareStatement("select F.dev from (select G.dev as dev,count(*) as ct from (select k.developer as dev, c.file from changes c\r\n" + 
+					"left join commits k on c.commit = k.id\r\n" + 
+					"group by k.developer, c.file\r\n" + 
+					"order by k.developer asc) as G\r\n" + 
+					"group by G.dev\r\n" + 
+					"order by count(*) desc ) as F\r\n" + 
+					"limit 1 \r\n" + 
+					";\r\n" + 
+					"");
+
+			ResultSet keySet = pst.executeQuery();
+			
+			if(keySet.next()) {
+				return keySet.getInt(1);
+				//System.out.println("ID NOVOG COMMITA JE : " + keySet.getInt(1));
+			}
+					
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public int dev_max_file() {
+		PreparedStatement pst;
+		//System.out.println("...ADDING NEW COMMIT...");
+	    try {
+			pst = connection.prepareStatement("select F.ct from \r\n" + 
+					"	(select G.dev as dev,count(*) as ct from (select k.developer as dev, c.file from changes c\r\n" + 
+					"	left join commits k on c.commit = k.id\r\n" + 
+					"	group by k.developer, c.file \r\n" + 
+					"	order by k.developer asc) as G\r\n" + 
+					"	group by G.dev \r\n" + 
+					"	order by count(*) desc ) as F\r\n" + 
+					"limit 1;");
+
+			ResultSet keySet = pst.executeQuery();
+			
+			if(keySet.next()) {
+				return keySet.getInt(1);
+				//System.out.println("ID NOVOG COMMITA JE : " + keySet.getInt(1));
+			}
+					
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public int dev_withMin_files() {
+		PreparedStatement pst;
+		//System.out.println("...ADDING NEW COMMIT...");
+	    try {
+			pst = connection.prepareStatement("select F.dev from (select G.dev as dev,count(*) as ct from (select k.developer as dev, c.file from changes c\r\n" + 
+					"left join commits k on c.commit = k.id\r\n" + 
+					"group by k.developer, c.file\r\n" + 
+					"order by k.developer asc) as G\r\n" + 
+					"group by G.dev\r\n" + 
+					"order by count(*) asc ) as F\r\n" + 
+					"limit 1 \r\n" + 
+					";\r\n" + 
+					"");
+
+			ResultSet keySet = pst.executeQuery();
+			
+			if(keySet.next()) {
+				return keySet.getInt(1);
+				//System.out.println("ID NOVOG COMMITA JE : " + keySet.getInt(1));
+			}
+					
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public int dev_min_file() {
+		PreparedStatement pst;
+		//System.out.println("...ADDING NEW COMMIT...");
+	    try {
+			pst = connection.prepareStatement("select F.ct from \r\n" + 
+					"	(select G.dev as dev,count(*) as ct from (select k.developer as dev, c.file from changes c\r\n" + 
+					"	left join commits k on c.commit = k.id\r\n" + 
+					"	group by k.developer, c.file \r\n" + 
+					"	order by k.developer asc) as G\r\n" + 
+					"	group by G.dev \r\n" + 
+					"	order by count(*) asc ) as F\r\n" + 
+					"limit 1;");
+
+			ResultSet keySet = pst.executeQuery();
+			
+			if(keySet.next()) {
+				return keySet.getInt(1);
+				//System.out.println("ID NOVOG COMMITA JE : " + keySet.getInt(1));
+			}
+					
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public void get_all() {
+		
+				
+	PreparedStatement pst;
+	List<String[]> dataLines = new ArrayList<>();
+	dataLines.add(new String[] 
+			  { "developer", "date", "commit", "file","line","operation" });
+
+		//System.out.println("...ADDING NEW COMMIT...");
+	    try {
+			pst = connection.prepareStatement("select k.developer, k.date_commited , k.id, c.file,c.line,c.operation from changes c\r\n" + 
+					"left join commits k on c.commit = k.id where c. length > 5;");
+
+			ResultSet keySet = pst.executeQuery();
+			
+			while(keySet.next()) {
+				dataLines.add(new String[] 
+						  {  keySet.getString(1), keySet.getString(2),keySet.getString(3),keySet.getString(4),keySet.getString(5),keySet.getString(6) });
+			
+				//System.out.println( keySet.getString(1)+ "|" +keySet.getString(2)+ "|" + keySet.getString(3)+ "|" + keySet.getString(4)+ "|" + keySet.getString(5)+ "|" + keySet.getString(6));
+			}
+					
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
+	    try {
+			givenDataArray_whenConvertToCSV_thenOutputCreated(dataLines);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public String convertToCSV(String[] data) {
+	    return Stream.of(data).map(this::escapeSpecialCharacters).collect(Collectors.joining(","));
+	}
+	
+	public String escapeSpecialCharacters(String data) {
+	    String escapedData = data.replaceAll("\\R", " ");
+	    if (data.contains(",") || data.contains("\"") || data.contains("'")) {
+	        data = data.replace("\"", "\"\"");
+	        escapedData = "\"" + data + "\"";
+	    }
+	    return escapedData;
+	}
+	
+	
+	
+
+	public void givenDataArray_whenConvertToCSV_thenOutputCreated(List<String[]> dataLines) throws IOException {
+	    File csvOutputFile = new File("testfile.csv");
+	    try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
+	        dataLines.stream()
+	          .map(this::convertToCSV)
+	          .forEach(pw::println);
+	    }
+	    assertTrue(csvOutputFile.exists());
+	}
+
+	private void assertTrue(boolean exists) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 
