@@ -29,9 +29,7 @@ public class Commit {
 		pullRequests = new ArrayList<PullRequest>();
 		
 		setSha(iterator.getString("sha"));
-		
 
-		
 		add_parrents(iterator,parrents_List);
 
 		
@@ -84,6 +82,9 @@ public class Commit {
 
 		JSONResponse jsonResponse = new JSONResponse(pullrequestString);
 		if(jsonResponse.getJsonArraySize()>0) {
+			
+			System.out.println("FROM PULLREQ");
+
 		for (int i =  0 ; i < jsonResponse.getJsonArraySize(); i++)
 		{
 			this.pullRequest = new PullRequest(jsonResponse.getIterator(i));
@@ -94,9 +95,11 @@ public class Commit {
 		
 		//System.out.println("AUTHOR IZ PULL REQUESTA");
 		this.author=pullRequest.getUser_name();
+		System.out.println("Author:" + author);
 		setGit_id(pullRequest.getGit_id());
 		}
 		else {
+			System.out.println("Author:" + author);
 			//System.out.println("PR NE POSTOJI");
 		}
 	}

@@ -31,8 +31,9 @@ public class MainViewController  {
 
 	
 	DataBaseHandler dataBaseHandler =  new DataBaseHandler(); 
+	ArrayList<PythonTable> pythonTableList=new ArrayList<PythonTable>();
+
 	
-ScriptParser  a=new ScriptParser(); 
 		@FXML
 	    private Label num_contLabel;
 
@@ -72,6 +73,18 @@ ScriptParser  a=new ScriptParser();
 	    @FXML
 	    private Label label_chart_perc = new Label();
 	    
+	    @FXML
+	    private Label dev_maxLinesWritten;
+
+	    @FXML
+	    private Label dev_maxLinesWrittensPerc;
+
+	    @FXML
+	    private Label dev_minLinesWrittens;
+
+	    @FXML
+	    private Label dev_minLinesWrittenPerc;
+	    
 	  @FXML
 	    void initialize() {
 	        assert num_contLabel != null : "fx:id=\"num_contLabel\" was not injected: check your FXML file 'MainView.fxml'.";
@@ -83,6 +96,10 @@ ScriptParser  a=new ScriptParser();
 	        assert num_filesDevPairLabel != null : "fx:id=\"num_filesDevPairLabel\" was not injected: check your FXML file 'MainView.fxml'.";
 	        assert chart_dev_line != null : "fx:id=\"chart_dev_line\" was not injected: check your FXML file 'MainView.fxml'.";
 	        assert label_chart_perc != null : "fx:id=\"label_chart_perc\" was not injected: check your FXML file 'MainView.fxml'.";
+	        assert dev_maxLinesWritten != null : "fx:id=\"label_chart_perc\" was not injected: check your FXML file 'MainView.fxml'.";
+	        assert dev_maxLinesWrittensPerc != null : "fx:id=\"label_chart_perc\" was not injected: check your FXML file 'MainView.fxml'.";
+	        assert dev_minLinesWrittens != null : "fx:id=\"label_chart_perc\" was not injected: check your FXML file 'MainView.fxml'.";
+	        assert dev_minLinesWrittenPerc != null : "fx:id=\"label_chart_perc\" was not injected: check your FXML file 'MainView.fxml'.";
 
 	        developer1_T1.setCellValueFactory(new PropertyValueFactory<PythonTable,String>("developer1"));
 	        numOfCommits_T1.setCellValueFactory(new PropertyValueFactory<PythonTable,String>("numOfCommits"));
@@ -93,9 +110,8 @@ ScriptParser  a=new ScriptParser();
 	        Column_numOfFiles.setCellValueFactory(new PropertyValueFactory<PythonTable,String>("count"));
 
 	        System.out.println("NOVI KONTROLESS");
-	        
-	        set_labels();
 		    set_tabels();
+	        set_labels();
 		    set_images();
 
 	        
@@ -115,9 +131,14 @@ ScriptParser  a=new ScriptParser();
 	      dev_minFilesWritePLabel.setText(Integer.toString(dataBaseHandler.dev_withMin_files()));
 	      dev_minFilesPercLabel.setText(Double.toString(dataBaseHandler.dev_min_file()/Double.parseDouble(num_codedfilesLabel.getText())*100));
 
+	      dev_maxLinesWritten.setText(pythonTableList.get(0).getDeveloper1());
+	      dev_maxLinesWrittensPerc.setText(pythonTableList.get(0).getCount());
+	      dev_minLinesWrittens.setText(pythonTableList.get(1).getDeveloper1());
+	      dev_minLinesWrittenPerc.setText(pythonTableList.get(1).getCount());
+
+	     
 	      
 	  }
-	  
 	  
 	  
 	  	@FXML
@@ -154,11 +175,17 @@ ScriptParser  a=new ScriptParser();
 
 	    
 	    public void set_tabels() {
+	  	  dataBaseHandler.get_all();
+
 	    	
 	    	ScriptParser scriptParser = new ScriptParser();
 	    	ArrayList<String> args = new ArrayList<>();
 	    	args.add("scripts/table_dev_file.py");	
 	    	table_dev_commits.setItems(scriptParser.getData_file_dev_table(getOutput(args)));
+	    	
+	    	args.clear();
+	    	args.add("scripts/developers_lines.py");	
+	    	pythonTableList= scriptParser.get_max_min_lines(getOutput(args));
 	    	
 	    	args.clear();
 	    	args.add("scripts/table_dev_file_dev.py");	
@@ -183,6 +210,15 @@ ScriptParser  a=new ScriptParser();
 	    	args.clear();
 	    	args.add("scripts/graph_architect_activity.py");	
 	    	getOutput(args);
+	    	
+	    	args.clear();
+	    	args.add("scripts/graph_dev_file_activity.py");	
+	    	getOutput(args);
+	    	
+	    	args.clear();
+	    	args.add("scripts/graph_dev_time_changes.py");	
+	    	getOutput(args);
+	    	
 	    	
 	    	args.clear();
 	    	args.add("scripts/graph_colaboration_commits1.py");	
@@ -260,6 +296,12 @@ ScriptParser  a=new ScriptParser();
 	    private ImageView graph_date_colab = new ImageView();
 	    @FXML
 	    private ImageView graph_dev_date_files = new ImageView();
+	    @FXML
+	    private ImageView graph_dev_date_files2 = new ImageView();
+	    @FXML
+	    private ImageView graph_dev_date_changes = new ImageView();
+	    
+	    
 	    
 	    public void set_images() {
 	    	ClassLoader classLoader = getClass().getClassLoader();
@@ -269,6 +311,11 @@ ScriptParser  a=new ScriptParser();
 	    	
 	    	Image image2 = new Image("file:///C:/Users/TOSHIBA/eclipse-workspace/BP_v1.2/scripts/img/graph_dev_time_files.png");
 	    	graph_dev_date_files.setImage(image2);
+	    	
+	    	Image image3 = new Image("file:///C:/Users/TOSHIBA/eclipse-workspace/BP_v1.2/scripts/img/graph_dev_time_files2.png");
+	    	graph_dev_date_files2.setImage(image3);
+	    	Image image4 = new Image("file:///C:/Users/TOSHIBA/eclipse-workspace/BP_v1.2/scripts/img/graph_dev_time_changes.png");
+	    	graph_dev_date_changes.setImage(image4);
 	    }
 
 

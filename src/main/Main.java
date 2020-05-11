@@ -37,6 +37,7 @@ import controler.DataBaseHandler;
 import controler.DataBaseScripts;
 import controler.MainViewController;
 import controler.Response;
+import controler.ScriptParser;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -57,7 +58,7 @@ public class Main  {
 	public static void main(String[] args)  {
 		
 		//DataBaseHandler dataBaseHandler = new DataBaseHandler();
-		//dataBaseHandler.get_all();
+		
 		/*ScriptPython scriptPython = new ScriptPython();
         scriptPython.runScript();*/
 		
@@ -65,27 +66,30 @@ public class Main  {
 		//mainViewController.set_tabels();
 			       
 		//PythonScript pythonScript = new PythonScript(argStrings);
+		DataBaseHandler dataBaseHandler = new DataBaseHandler();
+		
+		/*DataBaseScripts scripts = new DataBaseScripts(dataBaseHandler.getConnection());
+		scripts.empty_database();
+		scripts.reset_pkeys();
+		System.exit(1);*/
+		
 		Application.launch(GUI.class,args);
 		/*System.out.println("11111111");
 		 * 
 		 */
 		
 
-		URL url= new URL(username, reponame); 
+		//URL url= new URL(username, reponame); 
 		// TODO Auto-generated method stub
 
 		//CONNECT TO THE DATABASE
-		DataBaseHandler dataBaseHandler = new DataBaseHandler();
-		JSONResponse jsonResponse ;
+		//JSONResponse jsonResponse ;
 		
 		
 		
 		
-		/*
-		Scripts scripts = new Scripts(dataBaseHandler.getConnection());
-		scripts.empty_database();
-		scripts.reset_pkeys();
-		System.exit(1);*/
+		
+		
 		
 			// GET COMMIT RESPONSE	
 		/*Response response =new Response();

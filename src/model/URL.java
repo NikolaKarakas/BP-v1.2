@@ -3,7 +3,7 @@ package model;
 public class URL {
 
 	private String username;
-	private String access_token="?access_token=c95ded7bc6ed9f0c408205063896a220595fcb32";
+	private String access_token="?access_token=";
 	private String reponame;
 
 
@@ -39,7 +39,7 @@ public class URL {
 
 
 	public void setAccess_token(String access_token) {
-		this.access_token = access_token;
+		this.access_token = this.access_token + access_token;
 	}
 
 

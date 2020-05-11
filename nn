@@ -1,0 +1,2 @@
+select c.sha, d.user_name  from commits c 
+join developers d on c.developer = d.id;

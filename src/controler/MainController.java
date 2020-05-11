@@ -8,6 +8,9 @@ import javax.ws.rs.NotFoundException;
 
 import org.python.antlr.PythonParser.return_stmt_return;
 
+import com.sun.jersey.core.header.InBoundHeaders;
+
+import View.GUI;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,7 +31,6 @@ import model.JSONResponse;
 import model.URL;
 
 public class MainController implements Initializable {
-	
 	
 	
 	DataBaseHandler dataBaseHandler = new DataBaseHandler();
@@ -70,9 +72,9 @@ public class MainController implements Initializable {
 
 				set_Url();
 				
-				if(!get_data()) {
+				if(get_data()) {
 					
-				Parent secondView = FXMLLoader.load(getClass().getResource("MainView.fxml"));
+				Parent secondView = FXMLLoader.load(getClass().getResource("/View/MainView.fxml"));
 				Scene scene = new Scene(secondView,600,600);
 				Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
 				window.setScene(scene);
@@ -101,26 +103,33 @@ public class MainController implements Initializable {
 	public void set_Url() {
 		System.out.println(user_nameLabel.getText().toString());
 		
-		url.setUsername(user_nameLabel.getText());
+		/*url.setUsername(user_nameLabel.getText());
 		url.setReponame(repo_nameLabel.getText());
-		//url.setAccess_token(access_tokenLabel.getText());
+		url.setAccess_token(access_tokenLabel.getText());*/
+		url.setUsername("petergaspar");
+		url.setReponame("imagesearch");
+		url.setAccess_token("xx");
 	}
 
 	public boolean get_data() {
-		if(true)
-		return false;
-		else 
+
+	if(1<2)
+		return true;
+	
 		while(response.getResponse().length()>12) {
 			
 			try {
+				System.out.println("Request to "+ url.commit_list("")+" "+ page);
+
 				 response = new Response(url.commit_list(""),page++);
+
 
 			} catch (Exception e) {
 
 				//e.printStackTrace();
 				if(e instanceof NotFoundException)
 				{
-					
+					System.out.println("NEMA");
 					return false;
 				}
 				// TODO: handle exception
@@ -133,7 +142,7 @@ public class MainController implements Initializable {
 			
 			
 			
-			/*
+			
 	
 			
 			for (int i = 0; i<jsonResponse.getJsonArraySize(); i++)
@@ -145,11 +154,12 @@ public class MainController implements Initializable {
 				//Napravi toliko i Commita
 				
 				if(merged_sha_list.contains(jsonResponse.getIterator(i).getString("sha"))) {
-					//System.out.println("DUPLI");
+					System.out.println("SHA LIST" + merged_sha_list.size());
+					
 				}
 				else {
-				Commit commit = new Commit(jsonResponse.getIterator(i),dataBaseHandler,  url,merged_sha_list);
-
+				Commit commit = new Commit(jsonResponse.getIterator(i),dataBaseHandler,  url ,merged_sha_list );
+				System.out.println("Com.No: " + (commit_no - 1) + ", sha: "+commit.getSha());
 				DifferenceResponse difference = new DifferenceResponse(response.get_commit_diff(url.commit_list("/"+
 																		commit.getSha())),dataBaseHandler);
 	
@@ -158,7 +168,7 @@ public class MainController implements Initializable {
 				}
 	
 			}
-			*/
+			
 	}
 		return true;
 		

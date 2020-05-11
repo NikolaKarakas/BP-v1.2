@@ -1,4 +1,6 @@
 package controler;
+import java.util.ArrayList;
+
 //rubinovakatarina@gmail.com
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -9,6 +11,7 @@ import model.PythonTable;
 
 public class ScriptParser {
 
+	
 	
 	public ObservableList<PythonTable> getData_file_dev_table(String data){
     	
@@ -83,8 +86,7 @@ public class ScriptParser {
 		
 		ObservableList<PythonTable> pythonTableList=FXCollections.observableArrayList();
 	
-		System.out.println("FUNKCIJA");
-		System.out.println(data);
+		
 		String[] lines = data.split("\n");
 		
 		for(int i = 1 ; i < lines.length;i++) {
@@ -94,6 +96,30 @@ public class ScriptParser {
 			//System.out.println(rowStrings[2]);
 			pythonTable.setDeveloper1(new SimpleStringProperty(rowStrings[1]));
 			pythonTable.setCount(new SimpleStringProperty(rowStrings[2]));
+
+			pythonTableList.add(pythonTable);	
+		}
+		
+		return pythonTableList;
+		
+	}
+	
+public  ArrayList<PythonTable> get_max_min_lines(String data){
+    	
+
+	
+		String[] lines = data.split("\n");
+		ArrayList<PythonTable> pythonTableList=new ArrayList<PythonTable>();
+
+		for(int i = 1 ; i < lines.length;i++) {
+			String[] rowStrings = lines[i].split("\\s+");
+			 PythonTable pythonTable = new PythonTable() ;
+
+			//System.out.println(rowStrings[2]);
+			pythonTable.setDeveloper1(new SimpleStringProperty(rowStrings[1]));
+			pythonTable.setFile(new SimpleStringProperty(rowStrings[2]));
+			pythonTable.setCount(new SimpleStringProperty(rowStrings[3]));
+
 
 			pythonTableList.add(pythonTable);	
 		}

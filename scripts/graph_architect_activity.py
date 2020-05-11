@@ -21,10 +21,10 @@ dataset['date'] = pd.to_datetime(dataset['date'])
 
 #ARCHITECTS COMMITS
 architects_commits = dataset.iloc[:,[0,1,2,3]]
-architects_commits = architects_commits.drop(['commit'],axis=1)
+architects_commits = architects_commits.drop(['file'],axis=1)
 
 architects_commits = architects_commits.drop_duplicates()
-architects_commits = architects_commits.drop(['file'],axis=1)
+architects_commits = architects_commits.drop(['commit'],axis=1)
 architects_commits = architects_commits.groupby(['developer','date']).size().reset_index(name='commits')
 
 

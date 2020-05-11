@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.LineChart?>
-<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -18,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="434.0" prefWidth="629.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainViewController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="434.0" prefWidth="629.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controler.MainViewController">
    <tabs>
       <Tab text="Statistics">
          <content>
@@ -75,10 +72,10 @@
                                     <Label fx:id="dev_maxFilesWritePercLabel" prefHeight="27.0" text="q" />
                                     <Label fx:id="dev_minFilesWritePLabel" prefHeight="27.0" text="dev_minFilesWritxeLabel" />
                                     <Label fx:id="dev_minFilesPercLabel" prefHeight="27.0" text="dev_minFilesWriteLabel" />
-                                    <Label prefHeight="27.0" text="x" />
-                                    <Label prefHeight="27.0" prefWidth="0.0" text="x" />
-                                    <Label prefHeight="27.0" text="x" />
-                                    <Label prefHeight="27.0" text="x" />
+                                    <Label fx:id="dev_maxLinesWritten" prefHeight="27.0" text="most lines written" />
+                                    <Label fx:id="dev_maxLinesWrittensPerc" prefHeight="27.0" prefWidth="39.0" text="perc" />
+                                    <Label fx:id="dev_minLinesWrittens" prefHeight="27.0" text="min lines" />
+                                    <Label fx:id="dev_minLinesWrittenPerc" prefHeight="27.0" text="perc" />
                                     <Separator opacity="0.0" prefHeight="63.0" prefWidth="273.0">
                                        <opaqueInsets>
                                           <Insets />
@@ -104,11 +101,69 @@
             </ScrollPane>
          </content>
       </Tab>
-      <Tab text="Architect Also Implements">
+      <Tab text="Artifacts">
          <content>
-            <ScrollPane prefHeight="200.0" prefWidth="200.0">
+            <ScrollPane prefHeight="200.0" prefWidth="200.0" vvalue="0.9">
                <content>
-                  <VBox prefHeight="618.0" prefWidth="619.0">
+                  <VBox prefWidth="579.0">
+                     <children>
+                        <Label text="Enter Index of File Change:">
+                           <VBox.margin>
+                              <Insets top="15.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextField maxWidth="60.0" promptText="\%">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TableView fx:id="table_noDev_noFile" minHeight="500.0" style="-fx-border-width: 2;">
+                           <columns>
+                              <TableColumn fx:id="Column_numOfContributors" maxWidth="200.0" prefWidth="200.0" text="Number of Contributors" />
+                              <TableColumn fx:id="Column_numOfFiles" maxWidth="200.0" prefWidth="200.0" text="Number of Files" />
+                           </columns>
+                           <VBox.margin>
+                              <Insets top="15.0" />
+                           </VBox.margin>
+                        </TableView>
+                        <Label text="Number of files developer worked with:" />
+                        <TableView fx:id="table_dev_commits" minHeight="500.0" style="-fx-border-width: 2;">
+                           <columns>
+                              <TableColumn fx:id="developer1_T1" prefWidth="235.0" text="User Name" />
+                              <TableColumn fx:id="numOfCommits_T1" prefWidth="170.0" text="Files" />
+                           </columns>
+                           <VBox.margin>
+                              <Insets top="15.0" />
+                           </VBox.margin>
+                        </TableView>
+                        <Label prefHeight="25.0" prefWidth="244.0" text="On how many files developers collaborated:">
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin></Label>
+                        <TableView fx:id="table_dev_file_dev" minHeight="500.0" style="-fx-border-width: 2;">
+                           <columns>
+                              <TableColumn fx:id="developer1_T2" prefWidth="235.0" text="Developer 1" />
+                              <TableColumn fx:id="count_T2" prefWidth="105.0" text="Number of Files" />
+                              <TableColumn fx:id="developer2_T2" prefWidth="185.0" text="Developer 2" />
+                           </columns>
+                           <VBox.margin>
+                              <Insets top="15.0" />
+                           </VBox.margin>
+                        </TableView>
+                     </children>
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </content>
+      </Tab>
+      <Tab text="Developers">
+         <content>
+            <ScrollPane prefHeight="500.0" prefWidth="629.0" vvalue="0.74">
+               <content>
+                  <VBox prefWidth="616.0">
                      <children>
                         <HBox prefHeight="33.0" prefWidth="616.0">
                            <children>
@@ -123,119 +178,45 @@
                               <Insets left="10.0" top="10.0" />
                            </padding>
                         </HBox>
-                        <Label text="Architect's activity over time:">
-                           <VBox.margin>
-                              <Insets left="10.0" top="10.0" />
-                           </VBox.margin>
-                        </Label>
-                        <ImageView fx:id="graph_dev_date_files" fitHeight="600.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label text="Architect Compared to Other Developers:">
-                           <VBox.margin>
-                              <Insets left="10.0" top="10.0" />
-                           </VBox.margin>
-                        </Label>
-                        <LineChart prefHeight="285.0" prefWidth="616.0">
-                          <xAxis>
-                            <CategoryAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
-                           <VBox.margin>
-                              <Insets left="10.0" right="10.0" top="10.0" />
-                           </VBox.margin>
-                        </LineChart>
-                     </children>
-                  </VBox>
-               </content>
-            </ScrollPane>
-         </content>
-      </Tab>
-      <Tab text="Code Ownership">
-         <content>
-            <ScrollPane prefHeight="200.0" prefWidth="200.0">
-               <content>
-                  <VBox prefHeight="191.0" prefWidth="579.0">
-                     <children>
-                        <Label text="Enter Index of File Change:">
-                           <VBox.margin>
-                              <Insets top="5.0" />
-                           </VBox.margin>
-                        </Label>
-                        <TextField maxWidth="60.0" promptText="\%">
-                           <VBox.margin>
-                              <Insets top="5.0" />
-                           </VBox.margin>
-                        </TextField>
-                        <TableView fx:id="table_noDev_noFile" maxWidth="500.0" minHeight="200.0" style="-fx-border-width: 2;">
-                           <columns>
-                              <TableColumn fx:id="Column_numOfContributors" maxWidth="200.0" prefWidth="200.0" text="Number of Contributors" />
-                              <TableColumn fx:id="Column_numOfFiles" maxWidth="200.0" prefWidth="200.0" text="Number of Files" />
-                           </columns>
-                           <VBox.margin>
-                              <Insets top="5.0" />
-                           </VBox.margin>
-                        </TableView>
-                        <Label text="Contributors Histogram">
-                           <VBox.margin>
-                              <Insets left="10.0" top="5.0" />
-                           </VBox.margin>
-                        </Label>
-                        <ImageView fx:id="graph_date_colab" fitHeight="600.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label alignment="TOP_CENTER" text="Pair Developing History">
-                           <VBox.margin>
-                              <Insets top="5.0" />
-                           </VBox.margin>
-                        </Label>
-                        <LineChart prefHeight="225.0" prefWidth="579.0">
-                           <xAxis>
-                              <CategoryAxis side="BOTTOM" />
-                           </xAxis>
-                           <yAxis>
-                              <NumberAxis side="LEFT" />
-                           </yAxis>
-                           <VBox.margin>
-                              <Insets top="5.0" />
-                           </VBox.margin>
-                        </LineChart>
-                     </children>
-                     <padding>
-                        <Insets left="15.0" />
-                     </padding>
-                  </VBox>
-               </content>
-            </ScrollPane>
-         </content>
-      </Tab>
-      <Tab text="Developers">
-         <content>
-            <ScrollPane opacity="0.98" prefHeight="200.0" prefWidth="200.0" vvalue="0.13">
-               <content>
-                  <VBox prefHeight="1241.0" prefWidth="629.0">
-                     <children>
-                        <TableView fx:id="table_dev_commits" prefHeight="211.0" prefWidth="629.0" style="-fx-border-width: 2;">
-                           <columns>
-                              <TableColumn fx:id="developer1_T1" prefWidth="235.0" text="User Name" />
-                              <TableColumn fx:id="numOfCommits_T1" prefWidth="170.0" text="Number of Commits" />
-                           </columns>
+                        <Label text="Developer commits contribution:">
                            <VBox.margin>
                               <Insets top="15.0" />
                            </VBox.margin>
-                        </TableView>
-                        <Label prefHeight="25.0" prefWidth="170.0" text="Developing In Pairs">
+                        </Label>
+                        <ImageView fx:id="graph_dev_date_files" fitHeight="600.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
                            <VBox.margin>
-                              <Insets top="20.0" />
-                           </VBox.margin></Label>
-                        <TableView fx:id="table_dev_file_dev" prefHeight="316.0" prefWidth="629.0" style="-fx-border-width: 2;">
-                           <columns>
-                              <TableColumn fx:id="developer1_T2" prefWidth="235.0" text="Developer 1" />
-                              <TableColumn fx:id="count_T2" prefWidth="105.0" text="Number of Files" />
-                              <TableColumn fx:id="developer2_T2" prefWidth="185.0" text="Developer 2" />
-                           </columns>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </ImageView>
+                        <Label text="Developer files contribution:">
                            <VBox.margin>
                               <Insets top="15.0" />
                            </VBox.margin>
-                        </TableView>
+                        </Label>
+                        <ImageView fx:id="graph_dev_date_files2" fitHeight="600.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </ImageView>
+                        <Label text="Developer changes contribution:">
+                           <VBox.margin>
+                              <Insets top="15.0" />
+                           </VBox.margin>
+                        </Label>
+                        <ImageView fx:id="graph_dev_date_changes" fitHeight="600.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </ImageView>
+                        <Label text="Diagram of collaborational commits:">
+                           <VBox.margin>
+                              <Insets top="15.0" />
+                           </VBox.margin>
+                        </Label>
+                        <ImageView fx:id="graph_date_colab" fitHeight="600.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin></ImageView>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Label fx:id="label_chart_perc" prefHeight="46.0" prefWidth="79.0" textFill="#c34e4e">
@@ -246,14 +227,20 @@
                                     <Font name="Segoe UI" size="29.0" />
                                  </font>
                               </Label>
-                              <PieChart fx:id="chart_dev_line" minHeight="399.0" minWidth="193.0" onMouseClicked="#change_label" prefHeight="399.0" prefWidth="490.0" title="Developers Ratio">
+                              <PieChart fx:id="chart_dev_line" minHeight="399.0" minWidth="193.0" onMouseClicked="#change_label" prefHeight="399.0" prefWidth="490.0" title="Developer's share in project:">
                                  <HBox.margin>
                                     <Insets left="10.0" />
                                  </HBox.margin>
                               </PieChart>
                            </children>
+                           <VBox.margin>
+                              <Insets top="15.0" />
+                           </VBox.margin>
                         </HBox>
                      </children>
+                     <opaqueInsets>
+                        <Insets left="15.0" />
+                     </opaqueInsets>
                      <padding>
                         <Insets left="15.0" />
                      </padding>
